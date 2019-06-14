@@ -7,13 +7,20 @@
 
 namespace Test\Controller;
 
+use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+	protected $time;
+	public function __construct(DateTime $time)
+	{
+		$this->time = $time;
+	}
     public function indexAction()
     {
-        return new ViewModel(['name' => 'Fred Flintstone']);
+		$name = $this->upper('Fred Flintstone');
+        return new ViewModel(['name' => $name]);
     }
 }

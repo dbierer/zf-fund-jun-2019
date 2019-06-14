@@ -14,6 +14,7 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'ZendDeveloperTools',
-    'Application',
     'Test',
+    'Market',
+    'Application',
 ];
