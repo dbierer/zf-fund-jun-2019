@@ -7,6 +7,8 @@
 
 namespace Market;
 
+use Market\Controller\ {IndexController, PostController};
+use Market\Controller\Factory\ {IndexControllerFactory, PostControllerFactory};
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -15,20 +17,43 @@ return [
     'router' => [
         'routes' => [
             'market' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/market[/:action]',
+                    'route'    => '/market',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
                         'action'     => 'index',
                     ],
+                ],
+                'may_terminate' => TRUE,
+                'child_routes' => [
+					'home' => [
+						'type'    => Segment::class,
+						'options' => [
+							'route'    => '/home[/]',
+							'defaults' => [
+								'action'     => 'index',
+							],
+						],
+					],
+					'post' => [
+						'type'    => Segment::class,
+						'options' => [
+							'route'    => '/post[/]',
+							'defaults' => [
+								'controller' => PostController::class,
+								'action'     => 'index',
+							],
+						],
+					],
                 ],
             ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            IndexController::class => IndexControllerFactory::class,
+            PostController::class => PostControllerFactory::class,
         ],
     ],
     'view_manager' => [

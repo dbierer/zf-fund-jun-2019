@@ -1,4 +1,12 @@
 <h1>Test</h1>
 <hr>
 Hello <?= $this->name ?>
-
+<hr>
+Test:
+<ul>
+	<li><a href="<?= $this->url('test', ['action' => 'test']) ?>">Test</a> (enter "name" param in URL)</li>
+	<li><a href="<?= $this->url('test', ['action' => 'request']) ?>">Request</a></li>
+	<li><a href="<?= $this->url('test', ['action' => 'panic']) ?>">Panic</a></li>
+	<li><a href="<?= $this->url('test', ['action' => 'day-week-month']) ?>">Day/Week/Month</a></li>
+	<li><a href="<?= $this->url('test', ['action' => 'redirect']) ?>">Redirect</a></li>
+</ul>

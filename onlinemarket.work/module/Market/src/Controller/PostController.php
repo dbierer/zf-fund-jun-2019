@@ -10,12 +10,10 @@ namespace Market\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class PostController extends AbstractActionController
 {
     public function indexAction()
     {
-		$this->layout()->setTemplate('market/layout/layout');
-		$name = $this->params()->fromQuery('name', 'Unknown');
-        return new ViewModel(['name' => $name]);
+        return new ViewModel();
     }
 }

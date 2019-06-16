@@ -23,4 +23,30 @@ class IndexController extends AbstractActionController
 		$name = $this->upper('Fred Flintstone');
         return new ViewModel(['name' => $name]);
     }
+    public function testAction()
+    {
+		$name = $this->params()->fromQuery('name', 'Unknown');
+		$viewModel = new ViewModel(['name' => $this->upper($name)]);
+		$viewModel->setTemplate('test/index/index');
+        return $viewModel;
+    }
+    public function requestAction()
+    {
+        return new ViewModel(['request' => $this->getRequest()]);
+    }
+    public function panicAction()
+    {
+		$response = $this->getResponse();
+		$response->setContent('<h1>DO NOT PANIC ... EVERYTHING IS UNDER CONTROL</h1>');
+		return $response;
+	}
+    public function dayWeekMonthAction()
+    {
+        return new ViewModel($this->dayWeekMonth());
+    }
+    public function redirectAction()
+    {
+		$this->redirect()->toUrl('https://unlikelysource.com/');
+        return new ViewModel();
+    }
 }

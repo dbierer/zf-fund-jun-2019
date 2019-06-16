@@ -1,6 +1,8 @@
 <?php
 namespace Test;
 
+use Test\Controller\Plugin\ {Upper,DayWeekMonth};
+
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -9,9 +11,9 @@ return [
     'router' => [
 		'routes' => [
 			'test' => [
-				'type' => Literal::class,
+				'type' => Segment::class,
 				'options' => [
-					'route'    => '/test',
+                    'route'    => '/test[/:action]',
 					'defaults' => [
 						'controller' => Controller\IndexController::class,
 						'action'     => 'index',
@@ -30,10 +32,12 @@ return [
     ],
     'controller_plugins' => [
 		'factories' => [
-			Controller\Plugin\Upper::class => InvokableFactory::class,
+			Upper::class => InvokableFactory::class,
+			DayWeekMonth::class => InvokableFactory::class,
 		],
 		'aliases' => [
-			'upper' => Controller\Plugin\Upper::class,
+			'upper' => Upper::class,
+			'dayWeekMonth' => DayWeekMonth::class,
 		],
 	],
 ];
