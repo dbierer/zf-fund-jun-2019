@@ -10,13 +10,16 @@ namespace Test\Controller;
 use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Interop\Container\ContainerInterface;
 
 class IndexController extends AbstractActionController
 {
 	protected $time;
-	public function __construct(DateTime $time)
+	protected $container;
+	public function __construct(ContainerInterface $container)
 	{
-		$this->time = $time;
+		$this->container = $container;
+		$this->time = $container->get('test-date-time-service');
 	}
     public function indexAction()
     {
@@ -49,4 +52,19 @@ class IndexController extends AbstractActionController
 		$this->redirect()->toUrl('https://unlikelysource.com/');
         return new ViewModel();
     }
+    public function timeAction()
+    {
+		return new ViewModel(['today' => $this->time->format('Y-m-d H:i:s')]);
+	}
+    public function nestedViewModelsAction()
+    {
+		$childView1 = new ViewModel(['name' => '11111111']);
+		$childView2 = new ViewModel(['name' => '22222222']);
+		$childView1->setTemplate('test/index/child1');
+		$childView2->setTemplate('test/index/child2');
+		$primaryView = new ViewModel();
+		$primaryView->addChild($childView1, 'child1');
+		$primaryView->addChild($childView2, 'child2');
+		return $primaryView;
+	}
 }

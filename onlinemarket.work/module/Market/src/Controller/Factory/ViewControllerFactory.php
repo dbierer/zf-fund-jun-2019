@@ -1,22 +1,21 @@
 <?php
 
-namespace Test\Controller;
+namespace Market\Controller\Factory;
 
-use DateTime;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Test\Controller\IndexController;
+use Market\Controller\ViewController;
 
-class IndexControllerFactory implements FactoryInterface
+class ViewControllerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param null|array $options
-     * @return IndexController
+     * @return ViewController
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new IndexController($container);
+        return new ViewController();
     }
 }

@@ -7,8 +7,8 @@
 
 namespace Market;
 
-use Market\Controller\ {IndexController, PostController};
-use Market\Controller\Factory\ {IndexControllerFactory, PostControllerFactory};
+use Market\Controller\ {IndexController, PostController, ViewController};
+use Market\Controller\Factory\ {IndexControllerFactory, PostControllerFactory, ViewControllerFactory};
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -28,9 +28,9 @@ return [
                 'may_terminate' => TRUE,
                 'child_routes' => [
 					'home' => [
-						'type'    => Segment::class,
+						'type'    => Literal::class,
 						'options' => [
-							'route'    => '/home[/]',
+							'route'    => '/',
 							'defaults' => [
 								'action'     => 'index',
 							],
@@ -46,6 +46,46 @@ return [
 							],
 						],
 					],
+					'view' => [
+						'type'    => Literal::class,
+						'options' => [
+							'route'    => '/view',
+							'defaults' => [
+								'controller' => ViewController::class,
+								'action'     => 'index',
+							],
+						],
+						'may_terminate' => TRUE,
+						'child_routes' => [
+							'lazy' => [
+								'type'    => Segment::class,
+								'options' => [
+									'route'    => '/:category',
+									'defaults' => [
+										'action'     => 'index',
+									],
+								],
+							],
+							'index' => [
+								'type'    => Segment::class,
+								'options' => [
+									'route'    => '/category[/:category]',
+									'defaults' => [
+										'action'     => 'index',
+									],
+								],
+							],
+							'item' => [
+								'type'    => Segment::class,
+								'options' => [
+									'route'    => '/item[/:itemId]',
+									'defaults' => [
+										'action'     => 'item',
+									],
+								],
+							],
+						],
+					],
                 ],
             ],
         ],
@@ -54,6 +94,7 @@ return [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
             PostController::class => PostControllerFactory::class,
+            ViewController::class => ViewControllerFactory::class,
         ],
     ],
     'view_manager' => [
