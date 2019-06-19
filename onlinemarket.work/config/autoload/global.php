@@ -10,7 +10,31 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-
 return [
-    // ...
+	'service_manager' => [
+		'services' => [
+			'online-market-categories' => [
+				'barter',
+                'beauty',
+                'clothing',
+                'computer',
+                'entertainment',
+                'free',
+                'garden',
+                'general',
+                'health',
+                'household',
+                'phones',
+                'property',
+                'sporting',
+                'tools',
+                'transportation',
+                'wanted'			
+			],
+			'test1' => [
+				__FILE__
+			],
+			'test2' => __FILE__,
+		],
+	],
 ];

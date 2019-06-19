@@ -4,22 +4,24 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 namespace Test\Controller;
-
 use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\ {ViewModel,JsonModel};
 use Interop\Container\ContainerInterface;
 
 class IndexController extends AbstractActionController
 {
 	protected $time;
 	protected $container;
+	protected $test1;
+	protected $test2;
 	public function __construct(ContainerInterface $container)
 	{
 		$this->container = $container;
 		$this->time = $container->get('test-date-time-service');
+		$this->test1 = $container->get('test1');
+		$this->test2 = $container->get('test2');
 	}
     public function indexAction()
     {
@@ -67,4 +69,32 @@ class IndexController extends AbstractActionController
 		$primaryView->addChild($childView2, 'child2');
 		return $primaryView;
 	}
+    public function serviceTestAction()
+    {
+		return new ViewModel(['test1' => $this->test1, 'test2' => $this->test2]);
+	}
+    public function terminalAction()
+    {
+		$data = range('A', 'Z');
+		$viewModel = new ViewModel(['data' => $data]);
+		$viewModel->setTerminal(TRUE);
+		return $viewModel;
+	}
+    public function jsonDefaultAction()
+    {
+		$data = ['alpha' => range('A', 'Z'), 'numeric' => range(0,9)];
+		$viewModel = new ViewModel(['data' => $data]);
+		$viewModel->setTerminal(TRUE);
+		return $viewModel;
+	}
+    public function jsonModelAction()
+    {
+		$data = ['alpha' => range('A', 'Z'), 'numeric' => range(0,9)];
+		return new JsonModel(['data' => $data]);
+	}
+    public function varsAction()
+    {
+		$viewModel = new ViewModel(['one' => 'one', 'two' => 'two', 'three' => 'three']);
+        return $viewModel;
+    }
 }

@@ -1,3 +1,16 @@
 <h1>Online Market</h1>
 <hr>
+<div style="width:100%;">
 Hello <?= $this->escapeHtml($this->name) ?>
+</div>
+<?php if (!empty($this->categories)) : ?>
+<div style="width:50%;float:left;">
+<ul>
+<?php foreach ($this->categories as $item) echo '<li>' . $item . '</li>'; ?>
+</ul>
+</div>
+<div style="width:50%;float:left;">
+<?= $this->htmlList($this->categories, TRUE) ?>
+</div>
+<?php endif; ?>
+

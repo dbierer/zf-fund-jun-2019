@@ -1,12 +1,9 @@
 <?php
-
 namespace Test\Controller;
-
 use DateTime;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Test\Controller\IndexController;
-
 class IndexControllerFactory implements FactoryInterface
 {
     /**

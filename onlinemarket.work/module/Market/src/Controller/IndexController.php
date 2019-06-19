@@ -12,10 +12,11 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+	use CategoryTrait;
     public function indexAction()
     {
 		$this->layout()->setTemplate('market/layout/layout');
 		$name = $this->params()->fromQuery('name', 'Unknown');
-        return new ViewModel(['name' => $name]);
+        return new ViewModel(['name' => $name, 'categories' => $this->categories]);
     }
 }

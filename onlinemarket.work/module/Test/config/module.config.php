@@ -1,13 +1,10 @@
 <?php
 namespace Test;
-
 use Test\Service\TestDateTime;
 use Test\Controller\Plugin\ {Upper,DayWeekMonth};
-
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-
 return [
     'router' => [
 		'routes' => [
@@ -25,6 +22,7 @@ return [
     ],
     'view_manager' => [
         'template_path_stack' => [__DIR__ . '/../view'],
+        'strategies' => ['ViewJsonStrategy'],
     ],
     'controllers' => [
         'factories' => [
@@ -42,4 +40,3 @@ return [
 		],
 	],
 ];
-

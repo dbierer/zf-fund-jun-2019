@@ -1,6 +1,5 @@
 <?php
 namespace Test;
-
 use DateTime;
 class Module
 {
@@ -16,7 +15,12 @@ class Module
 					return new DateTime();
 				},
 			],
+			'services' => [
+				'test1' => [
+					__FILE__
+				],
+				'test2' => __FILE__,
+			],
 		];
     }
 }
-

@@ -102,4 +102,12 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+    'service_manager' => [
+		'services' => [
+			'test1' => [
+				__FILE__
+			],
+			'test2' => __FILE__,
+		],
+	],		
 ];
