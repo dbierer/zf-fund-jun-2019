@@ -7,6 +7,7 @@
 
 namespace Market;
 
+use Market\Helper\LeftLinks;
 use Market\Controller\ {IndexController, PostController, ViewController};
 use Market\Controller\Factory\ {IndexControllerFactory, PostControllerFactory, ViewControllerFactory};
 use Zend\Router\Http\Literal;
@@ -109,5 +110,13 @@ return [
 			],
 			'test2' => __FILE__,
 		],
-	],		
+	],
+	'view_helpers' => [
+		'factories' => [
+			LeftLinks::class => InvokableFactory::class,
+		],
+		'aliases' => [
+			'leftLinks' => LeftLinks::class,
+		],
+	],
 ];
