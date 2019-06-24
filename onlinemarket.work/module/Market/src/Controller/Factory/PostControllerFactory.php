@@ -1,7 +1,7 @@
 <?php
-
 namespace Market\Controller\Factory;
 
+use Market\Form\PostForm;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Market\Controller\PostController;
@@ -16,6 +16,9 @@ class PostControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new PostController();
+		//*** NOTE: here you could check for authorization before delivering a given form
+        $controller = new PostController();
+        $controller->setPostForm($container->get(PostForm::class));
+        return $controller;
     }
 }

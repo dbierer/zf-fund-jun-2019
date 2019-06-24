@@ -9,6 +9,7 @@ use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ {ViewModel,JsonModel};
 use Interop\Container\ContainerInterface;
+use Zend\EventManager\ {Event,EventManager};
 
 class IndexController extends AbstractActionController
 {
@@ -97,4 +98,45 @@ class IndexController extends AbstractActionController
 		$viewModel = new ViewModel(['one' => 'one', 'two' => 'two', 'three' => 'three']);
         return $viewModel;
     }
+    public function eventAction()
+    {
+		$data = [];
+		$callback = $this->listener(NULL);
+
+		// this works because the controller EM is associated with the shared manager;
+		//$em = $this->getEventManager();
+
+		// this doesn't work because the EM is not associated with the shared manager;
+		//$em = new EventManager();
+
+		// this works as well, but it's super-convoluted:
+		$em = $this->getEvent()->getApplication()->getServiceManager()->get('EventManager');
+		$em->attach('test-event', $callback, 1);
+		$em->attach('test-event', [$this, 'listener2'], 2);
+		$em->trigger('test-event', $this, ['a' => 'B']);
+		$viewModel = new ViewModel(['data' => $data]);
+        return $viewModel;		
+	}
+	protected function listener($e)
+	{
+		return new class() {
+			public function __invoke($e) {
+				echo '<pre>';
+				echo '<br>' . __METHOD__ . ':' . get_class($e);
+				echo '<br>Name: ' . $e->getName();
+				echo '<br>Target: ' . get_class($e->getTarget());
+				echo '<br>Params: ' . var_export($e->getParams(), TRUE);
+				echo '</pre>';
+			}
+		};
+	}
+	public function listener2($e)
+	{
+		echo '<pre>';
+		echo '<br>' . __METHOD__ . ':' . get_class($e);
+		echo '<br>Name: ' . $e->getName();
+		echo '<br>Target: ' . get_class($e->getTarget());
+		echo '<br>Params: ' . var_export($e->getParams(), TRUE);
+		echo '</pre>';
+	}
 }
