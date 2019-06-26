@@ -17,12 +17,14 @@ class IndexController extends AbstractActionController
 	protected $container;
 	protected $test1;
 	protected $test2;
+	protected $adapter;
 	public function __construct(ContainerInterface $container)
 	{
 		$this->container = $container;
 		$this->time = $container->get('test-date-time-service');
 		$this->test1 = $container->get('test1');
 		$this->test2 = $container->get('test2');
+		$this->adapter = $container->get('test-adapter');
 	}
     public function indexAction()
     {
@@ -138,5 +140,10 @@ class IndexController extends AbstractActionController
 		echo '<br>Target: ' . get_class($e->getTarget());
 		echo '<br>Params: ' . var_export($e->getParams(), TRUE);
 		echo '</pre>';
+	}
+	public function adapterAction()
+	{
+		$listings = $this->adapter->query('SELECT * FROM listings', []);
+		return new ViewModel(['listings' => $listings]);
 	}
 }

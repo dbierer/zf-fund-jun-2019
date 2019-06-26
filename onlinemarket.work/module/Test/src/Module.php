@@ -2,7 +2,7 @@
 namespace Test;
 use DateTime;
 use Zend\Mvc\MvcEvent;
-
+use Zend\Db\Adapter\Adapter;
 class Module
 {
 	public function onBootstrap(MvcEvent $e)
@@ -30,6 +30,9 @@ class Module
 			'factories' => [
 				'test-date-time-service' => function ($container, $requestedName, $options = NULL) {
 					return new DateTime();
+				},
+				'test-adapter' => function ($container) {
+					return new Adapter($container->get('local-db-config'));
 				},
 			],
 			'services' => [
