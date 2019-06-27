@@ -1,23 +1,2 @@
 <h1>Online Market</h1>
-<hr>
-<div style="width:100%;">
-Hello <?= $this->escapeHtml($this->name) ?>
-</div>
-<?php if (!empty($this->categories)) : ?>
-<div style="width:25%;float:left;">
-<ul>
-<?php foreach ($this->categories as $item) echo '<li>' . $item . '</li>'; ?>
-</ul>
-</div>
-<div style="width:25%;float:left;">
-<?= $this->htmlList($this->categories, TRUE) ?>
-</div>
-<div style="width:25%;float:left;">
-<?php $leftLinks = $this->plugin('leftLinks'); ?>
-<?= $leftLinks->render($this->categories, '/market/view/category') ?>
-</div>
-<div style="width:25%;float:left;">
-<?= $this->leftLinks($this->categories, '/market/view/category') ?>
-</div>
-<?php endif; ?>
-
+<?= $this->partial('partials/item', ['item' => $this->item]); ?>  

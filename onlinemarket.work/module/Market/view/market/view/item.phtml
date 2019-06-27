@@ -1,3 +1,2 @@
-<h1><?= $this->escapeHtml($this->item) ?></h1>
-<hr>
-One specific item from the Online Market
+<h1><?= ucfirst($this->category) ?></h1>
+<?= $this->partial('partials/item', ['item' => $this->item]); ?>  

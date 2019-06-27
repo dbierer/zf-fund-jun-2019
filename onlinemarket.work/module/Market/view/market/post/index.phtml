@@ -56,8 +56,5 @@ dt {
 <?php endif; ?>
 
 <?php echo $this->form()->openTag($post); ?>
-<?php foreach($post as $element) : ?>
-<?php     echo $this->formRow($element); ?>
-<?php endforeach; ?>
-<?php //echo $this->formCollection($post); ?>
+<?php echo $this->formCollection($post); ?>
 <?php echo $this->form()->closeTag(); ?>

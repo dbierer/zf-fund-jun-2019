@@ -17,6 +17,16 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'home' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/',
+                    'defaults' => [
+                        'controller' => IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'market' => [
                 'type'    => Literal::class,
                 'options' => [
