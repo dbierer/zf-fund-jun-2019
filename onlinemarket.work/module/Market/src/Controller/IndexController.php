@@ -14,6 +14,11 @@ class IndexController extends AbstractActionController
 {
     protected $categories;
     use ListingsTableTrait;
+    public function __construct($categories, $table)
+    {
+		$this->setCategories($categories);
+		$this->setListingsTable($table);
+	}
     public function indexAction()
     {
         return new ViewModel(['item' => $this->listingsTable->findLatest()]);

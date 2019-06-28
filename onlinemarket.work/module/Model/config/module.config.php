@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 
+use Model\Table\Listings;
 return [
     'service_manager' => [
         'factories' => [

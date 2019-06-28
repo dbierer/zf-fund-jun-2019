@@ -34,6 +34,8 @@ class Listings extends TableGateway
 {
     const TABLE_NAME = 'listings';
     const DATE_FORMAT = 'Y-m-d H:i:s';
+    // NOTE: you could also extend this mapping to incorporate form field names
+    //       this would be an excellent security precaution
     protected $fields = [
         'category',
         'title',
@@ -60,7 +62,7 @@ class Listings extends TableGateway
     {
         $select = (new Sql($this->getAdapter()))->select();
         $select->from(self::TABLE_NAME);
-        $select->order('listings_id DESC');
+        $select->order('date_created DESC');
         $select->limit(1);
         return $this->selectWith($select)->current();
     }
